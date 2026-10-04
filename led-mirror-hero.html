@@ -1,0 +1,652 @@
+!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مصنع أنوار الزجاج - مرايا LED حسب الطلب</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ==========================================================================
+     Design tokens
+     ========================================================================== */
+  :root {
+    /* Colors */
+    --color-white: #FFFFFF;
+    --color-navy-900: #0B2236;
+    --color-navy-800: #102334;
+    --color-navy-overlay: rgba(7, 27, 43, 0.8);
+    --color-teal-600: #176C8F;
+    --color-cyan-400: #48B9CE;
+    --color-green-500: #20B86A;
+    --color-slate-500: #607481;
+    --color-slate-300: #B9CAD4;
+    --color-slate-400: #91A7B4;
+    --color-glass-bg: rgba(255, 255, 255, 0.05);
+    --color-glass-border: rgba(255, 255, 255, 0.14);
+
+    /* Typography */
+    --font-family: 'Noto Sans Arabic', sans-serif;
+    --fs-10: 10px;
+    --fs-12: 12px;
+    --fs-13: 13px;
+    --fs-14: 14px;
+    --fs-16: 16px;
+    --fs-20: 20px;
+    --fs-24: 24px;
+    --fs-hero: 64px;
+    --fw-regular: 400;
+    --fw-semibold: 600;
+    --fw-bold: 700;
+    --fw-extrabold: 800;
+
+    /* Spacing */
+    --space-1: 1px;
+    --space-3: 3px;
+    --space-8: 8px;
+    --space-10: 10px;
+    --space-12: 12px;
+    --space-14: 14px;
+    --space-16: 16px;
+    --space-18: 18px;
+    --space-24: 24px;
+    --space-26: 26px;
+    --space-32: 32px;
+    --space-56: 56px;
+    --space-58: 58px;
+    --space-96: 96px;
+
+    /* Radius */
+    --radius-pill: 999px;
+    --radius-mark: 13px;
+    --radius-mark-inner: 8px;
+    --radius-image: 34px;
+
+    /* Layout */
+    --navbar-height: 88px;
+    --hero-height: 742px;
+    --image-width: 690px;
+    --image-height: 630px;
+    --nav-padding-x: var(--space-96);
+  }
+
+  /* ==========================================================================
+     Reset
+     ========================================================================== */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: var(--font-family);
+    background-color: var(--color-white);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button {
+    font-family: inherit;
+    cursor: pointer;
+  }
+
+  /* ==========================================================================
+     Buttons
+     ========================================================================== */
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-10);
+    height: 56px;
+    padding: 0 var(--space-26);
+    border: 1px solid transparent;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-family);
+    font-size: var(--fs-16);
+    font-weight: var(--fw-bold);
+    line-height: normal;
+    white-space: nowrap;
+  }
+
+  .button--primary {
+    background-color: var(--color-teal-600);
+    border-color: var(--color-teal-600);
+    color: var(--color-white);
+  }
+
+  .button--whatsapp {
+    background-color: var(--color-green-500);
+    border-color: var(--color-green-500);
+    color: var(--color-white);
+  }
+
+  .button--light {
+    background-color: var(--color-white);
+    border-color: var(--color-white);
+    color: var(--color-navy-900);
+  }
+
+  .button__icon {
+    width: 19px;
+    height: 19px;
+    flex-shrink: 0;
+  }
+
+  /* ==========================================================================
+     Header / Navbar
+     ========================================================================== */
+  .header {
+    position: relative;
+    z-index: 10;
+    background-color: var(--color-white);
+  }
+
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--navbar-height);
+    padding: 0 var(--nav-padding-x);
+    background-color: var(--color-white);
+  }
+
+  .navbar__brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-12);
+  }
+
+  .navbar__brand-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+    line-height: normal;
+    white-space: nowrap;
+  }
+
+  .navbar__brand-name {
+    font-size: var(--fs-20);
+    font-weight: var(--fw-extrabold);
+    color: var(--color-navy-900);
+  }
+
+  .navbar__brand-tagline {
+    font-size: var(--fs-10);
+    font-weight: var(--fw-semibold);
+    color: var(--color-slate-500);
+  }
+
+  .navbar__mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    background-color: var(--color-navy-900);
+    border-radius: var(--radius-mark);
+  }
+
+  .navbar__mark-glass {
+    width: 23px;
+    height: 28px;
+    border: 2px solid var(--color-cyan-400);
+    border-radius: var(--radius-mark-inner);
+    background-color: transparent;
+  }
+
+  .navbar__menu {
+    display: block;
+  }
+
+  .navbar__list {
+    display: flex;
+    align-items: center;
+    gap: var(--space-32);
+    list-style: none;
+    font-size: var(--fs-14);
+    font-weight: var(--fw-semibold);
+    line-height: normal;
+    color: var(--color-navy-800);
+    white-space: nowrap;
+  }
+
+  .navbar__link {
+    display: block;
+  }
+
+  .navbar__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-12);
+  }
+
+  .navbar__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    color: var(--color-navy-800);
+  }
+
+  .navbar__toggle-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* ==========================================================================
+     Hero
+     ========================================================================== */
+  .hero {
+    display: flex;
+    align-items: center;
+    gap: var(--space-58);
+    min-height: var(--hero-height);
+    padding: var(--space-56) var(--space-56) var(--space-56) var(--space-96);
+    background-color: var(--color-navy-900);
+    overflow: hidden;
+  }
+
+  .hero__content {
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-24);
+    min-width: 0;
+  }
+
+  .hero__tag {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-10);
+    padding: var(--space-8) var(--space-14);
+    background-color: var(--color-glass-bg);
+    border: 1px solid var(--color-glass-border);
+    border-radius: var(--radius-pill);
+  }
+
+  .hero__tag-text {
+    font-size: var(--fs-13);
+    font-weight: var(--fw-bold);
+    color: var(--color-cyan-400);
+    line-height: normal;
+    white-space: nowrap;
+  }
+
+  .hero__dot {
+    display: block;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background-color: var(--color-cyan-400);
+  }
+
+  .hero__dot--tag {
+    width: 7px;
+    height: 7px;
+  }
+
+  .hero__dot--badge {
+    width: 8px;
+    height: 8px;
+  }
+
+  .hero__title {
+    width: 100%;
+    font-size: clamp(44px, 4.45vw, var(--fs-hero));
+    font-weight: var(--fw-extrabold);
+    line-height: 1.22;
+    color: var(--color-white);
+    text-align: right;
+  }
+
+  .hero__lead {
+    width: 100%;
+    font-size: var(--fs-20);
+    font-weight: var(--fw-regular);
+    line-height: 1.8;
+    color: var(--color-slate-300);
+    text-align: right;
+  }
+
+  .hero__actions {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-12);
+  }
+
+  .hero__stats {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-18);
+    width: 100%;
+    padding-top: var(--space-12);
+    line-height: normal;
+    white-space: nowrap;
+  }
+
+  .hero__stat {
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+    min-width: 0;
+  }
+
+  .hero__stat-value {
+    font-size: var(--fs-24);
+    font-weight: var(--fw-extrabold);
+    color: var(--color-white);
+  }
+
+  .hero__stat-label {
+    font-size: var(--fs-12);
+    font-weight: var(--fw-regular);
+    color: var(--color-slate-400);
+  }
+
+  .hero__figure {
+    position: relative;
+    flex: 0 1 var(--image-width);
+    width: var(--image-width);
+    max-width: 100%;
+    height: var(--image-height);
+    overflow: hidden;
+    border-radius: var(--radius-image);
+    box-shadow: 0 20px 26px rgba(6, 23, 36, 0.16);
+  }
+
+  .hero__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  .hero__badge {
+    position: absolute;
+    left: var(--space-24);
+    bottom: var(--space-24);
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 11px var(--space-16);
+    background-color: var(--color-navy-overlay);
+    border-radius: var(--radius-pill);
+  }
+
+  .hero__badge-text {
+    font-size: var(--fs-12);
+    font-weight: var(--fw-bold);
+    color: var(--color-white);
+    line-height: normal;
+    white-space: nowrap;
+  }
+
+  /* ==========================================================================
+     Tablet
+     ========================================================================== */
+  @media (max-width: 1024px) {
+    :root {
+      --nav-padding-x: var(--space-32);
+    }
+
+    .navbar {
+      position: relative;
+    }
+
+    .navbar__menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      left: 0;
+      max-height: 0;
+      overflow: hidden;
+      background-color: var(--color-white);
+      box-shadow: 0 12px 20px rgba(6, 23, 36, 0.08);
+      transition: max-height 0.35s ease;
+    }
+
+    .navbar__menu.is-open {
+      max-height: 320px;
+    }
+
+    .navbar__list {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: var(--space-8) var(--nav-padding-x) var(--space-16);
+    }
+
+    .navbar__link {
+      padding: var(--space-12) 0;
+      border-bottom: 1px solid rgba(16, 35, 52, 0.08);
+    }
+
+    .navbar__list li:last-child .navbar__link {
+      border-bottom: none;
+    }
+
+    .hero {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-32);
+      min-height: 0;
+      padding: 48px var(--space-32);
+    }
+
+    .hero__figure {
+      order: -1;
+      flex: none;
+      width: 100%;
+      height: 420px;
+    }
+
+    .hero__title {
+      font-size: 48px;
+    }
+
+    .hero__lead {
+      font-size: 18px;
+    }
+  }
+
+  /* ==========================================================================
+     Mobile
+     ========================================================================== */
+  @media (max-width: 768px) {
+    :root {
+      --navbar-height: 72px;
+      --nav-padding-x: 20px;
+    }
+
+    .navbar__brand-name {
+      font-size: 17px;
+    }
+
+    .navbar__actions .button {
+      height: 44px;
+      padding: 0 18px;
+      font-size: var(--fs-14);
+    }
+
+    .hero {
+      gap: var(--space-24);
+      padding: var(--space-32) 20px;
+    }
+
+    .hero__figure {
+      height: 300px;
+      border-radius: 24px;
+    }
+
+    .hero__badge {
+      left: var(--space-16);
+      bottom: var(--space-16);
+    }
+
+    .hero__title {
+      font-size: 34px;
+    }
+
+    .hero__lead {
+      font-size: var(--fs-16);
+    }
+
+    .hero__actions {
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .hero__actions .button {
+      flex: 1 1 auto;
+    }
+
+    .hero__stats {
+      gap: var(--space-12);
+    }
+
+    .hero__stat-value {
+      font-size: var(--fs-20);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .navbar__brand-tagline {
+      display: none;
+    }
+
+    .hero__tag-text {
+      white-space: normal;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <header class="header">
+    <nav class="navbar" aria-label="التنقل الرئيسي">
+      <a class="navbar__brand" href="#" aria-label="مصنع أنوار الزجاج - الصفحة الرئيسية">
+        <div class="navbar__brand-text">
+          <span class="navbar__brand-name">مصنع أنوار الزجاج</span>
+          <span class="navbar__brand-tagline">مرايا LED حسب الطلب</span>
+        </div>
+        <div class="navbar__mark" aria-hidden="true">
+          <div class="navbar__mark-glass"></div>
+        </div>
+      </a>
+
+      <div class="navbar__menu" id="navbar-menu">
+        <ul class="navbar__list">
+          <li><a class="navbar__link" href="#about">عن المصنع</a></li>
+          <li><a class="navbar__link" href="#services">خدماتنا</a></li>
+          <li><a class="navbar__link" href="#quality">الجودة والضمان</a></li>
+          <li><a class="navbar__link" href="#contact">تواصل معنا</a></li>
+        </ul>
+      </div>
+
+      <div class="navbar__actions">
+        <button class="navbar__toggle" type="button" aria-label="فتح القائمة" aria-expanded="false" aria-controls="navbar-menu">
+          <svg class="navbar__toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="4" y1="6" x2="20" y2="6"/>
+            <line x1="4" y1="12" x2="20" y2="12"/>
+            <line x1="4" y1="18" x2="20" y2="18"/>
+          </svg>
+        </button>
+        <a class="button button--primary" href="#contact">اطلب عرض سعر</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__content">
+        <div class="hero__tag">
+          <span class="hero__tag-text">إضاءة تُصنع لتناسب مساحتك</span>
+          <span class="hero__dot hero__dot--tag" aria-hidden="true"></span>
+        </div>
+
+        <h1 class="hero__title" id="hero-title">مرايا مضيئة، مصنوعة بدقة لتدوم</h1>
+
+        <p class="hero__lead">نصمّم ونصنّع مرايا LED حسب الطلب للمنازل والمشاريع، من القياس الأول حتى التركيب النهائي.</p>
+
+        <div class="hero__actions">
+          <a class="button button--light" href="#contact">
+            <span>اطلب عرض سعر</span>
+            <svg class="button__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M19 12H5"/>
+              <path d="M12 19l-7-7 7-7"/>
+            </svg>
+          </a>
+          <a class="button button--whatsapp" href="#contact">
+            <span>واتساب مباشر</span>
+            <svg class="button__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>
+            </svg>
+          </a>
+        </div>
+
+        <ul class="hero__stats">
+          <li class="hero__stat">
+            <span class="hero__stat-value">12 شهرًا</span>
+            <span class="hero__stat-label">ضمان تصنيع</span>
+          </li>
+          <li class="hero__stat">
+            <span class="hero__stat-value">5 سنوات</span>
+            <span class="hero__stat-label">خبرة محلية</span>
+          </li>
+          <li class="hero__stat">
+            <span class="hero__stat-value" dir="ltr" style="text-align:right;align-self:flex-start;">+1,200</span>
+            <span class="hero__stat-label">مرآة مصنّعة</span>
+          </li>
+        </ul>
+      </div>
+
+      <figure class="hero__figure">
+        <img class="hero__image" src="https://www.figma.com/api/mcp/asset/1ac7beae-9ccd-4db2-b4cc-2f47fd9d9b95/aa251.png" alt="عامل يركّب مرآة LED مضيئة داخل ورشة تصنيع زجاج حديثة">
+        <div class="hero__badge">
+          <span class="hero__badge-text">صناعة محلية • تجهيز حسب المقاس</span>
+          <span class="hero__dot hero__dot--badge" aria-hidden="true"></span>
+        </div>
+      </figure>
+    </section>
+  </main>
+
+<script>
+  (function () {
+    var toggle = document.querySelector('.navbar__toggle');
+    var menu = document.getElementById('navbar-menu');
+    if (!toggle || !menu) return;
+
+    toggle.addEventListener('click', function () {
+      var isOpen = menu.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      toggle.setAttribute('aria-label', isOpen ? 'إغلاق القائمة' : 'فتح القائمة');
+    });
+  })();
+</script>
+</body>
+</html>
+<
